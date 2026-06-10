@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Pets World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+        
+        <div id="cart-content">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        
+        <div class="cart-summary" id="cart-summary" style="display: none;">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping:</span>
+                <span id="shipping">₹50</span>
+            </div>
+            <div class="summary-row">
+                <span>Tax (18%):</span>
+                <span id="tax">₹0</span>
+            </div>
+            <div class="summary-row summary-total">
+                <span>Total:</span>
+                <span id="total">₹0</span>
+            </div>
+
+            <!-- User Information Form -->
+            <div class="user-info-form" id="userInfoForm">
+                <h3>Shipping Information</h3>
+                <div class="form-group">
+                    <p><strong>Full Name:</strong><input type="text" id="userName" placeholder="Your Full Name" required></p>
+                </div>
+                <div class="form-group">
+                    <p><strong>Address:</strong><input type="text" id="userAddress" placeholder="Your Complete Address" required></p>
+                </div>
+                <div class="form-group">
+                    <p><strong>Phone No:</strong><input type="tel" id="userPhone" placeholder="Your Phone Number" required></p>
+                </div>
+            </div>
+
+            <!-- User Info Display -->
+            <div class="user-info-display" id="userInfoDisplay" style="display: none;">
+                <h4><i class="fas fa-user"></i> Shipping To:</h4>
+                <p><strong>Name:</strong> <span id="displayName">-</span></p>
+                <p><strong>Address:</strong> <span id="displayAddress">-</span></p>
+                <p><strong>Phone:</strong> <span id="displayPhone">-</span></p>
+            </div>
+            
+            <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+        
+        <a href="pet_shop.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+    </div>
+
+    <!-- Order Notification -->
+    <div class="order-notification" id="orderNotification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>Order Confirmed! 🎉</h3>
+            <div class="order-details">
+                <p><strong>Order ID:</strong> <span id="orderId">-</span></p>
+                <p><strong>Customer:</strong> <span id="customerName">-</span></p>
+                <p><strong>Shipping To:</strong> <span id="customerAddress">-</span></p>
+                <p><strong>Total Amount:</strong> <span id="orderTotal">-</span></p>
+            </div>
+            <p>Your order will be delivered in 3-5 days</p>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+</body>
+</html>
