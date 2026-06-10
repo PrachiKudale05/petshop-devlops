@@ -1,9 +1,26 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Install phase"
+
+  pre_build:
+    commands:
+      - echo "Checking source files..."
+      - ls -la
+
   build:
     commands:
-      - echo "Build Started"
+      - echo "Build started on $(date)"
+
+  post_build:
+    commands:
+      - echo "Deploying files to S3 bucket..."
+      - aws s3 sync . s3://bucket-devops-pipline --delete --exclude ".git/*" --exclude "buildspec.yml" --exclude "README.md"
+      - echo "Deployment completed successfully!"
 
 artifacts:
   files:
