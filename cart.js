@@ -440,6 +440,44 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCheckout();
 });
 
+
 // Make functions globally available
 window.updateQuantity = updateQuantity;
 window.removeItem = removeItem;
+
+async function placeOrder() {
+
+    const orderData = {
+        customerName: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        cartItems: JSON.parse(localStorage.getItem("cart")) || []
+    };
+
+    try {
+
+        const response = await fetch(
+            "https://YOUR_API_ID.execute-api.ap-south-1.amazonaws.com/prod/order",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(orderData)
+            }
+        );
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        localStorage.removeItem("cart");
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Order failed");
+
+    }
+}
