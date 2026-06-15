@@ -19,7 +19,7 @@ phases:
   post_build:
     commands:
       - echo "Deploying files to S3 bucket..."
-      - aws s3 sync . s3://bucket-devops-pipline --delete --exclude ".git/*" --exclude "buildspec.yml" --exclude "README.md"
+      - aws s3 sync . s3://petshop-static-web-devlops --delete --exclude ".git/*" --exclude "buildspec.yml" --exclude "README.md"
       - echo "Deployment completed successfully!"
 
 artifacts:
