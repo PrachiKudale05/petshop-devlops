@@ -97,8 +97,7 @@ function renderCart() {
     });
     
     cartHTML += `</tbody></table>`;
-    cartContent.innerHTML = cartHTML;
-    
+cartContent.innerHTML = "empty cart message"    
     // Calculate and display summary
     updateCartSummary(subtotal);
     
