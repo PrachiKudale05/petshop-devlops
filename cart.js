@@ -33,16 +33,20 @@ function renderCart() {
     const cartSummary = document.getElementById('cart-summary');
     
     if(cartItems.length === 0) {
-        cartContent.innerHTML = `
-            <div class="empty-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <h2>Your cart is empty</h2>
-                <p>Add some items to your cart to see them here</p>
-            </div>
-        `;
-        if (cartSummary) cartSummary.style.display = 'none';
-        return;
+    cartContent.innerHTML = `
+        <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Your cart is empty</h2>
+            <p>Add some items to your cart to see them here</p>
+        </div>
+    `;
+
+    if (cartSummary) {
+        cartSummary.style.display = 'none';
     }
+
+    return;
+}
     
     let cartHTML = `
         <table class="cart-table">
@@ -112,10 +116,10 @@ function updateCartSummary(subtotal) {
     const tax = subtotal * 0.18; // 18% tax
     const total = subtotal + shipping + tax;
     
-    document.getElementById('subtotal').textContent = `₹${subtotal}`;
-    document.getElementById('shipping').textContent = `₹${shipping}`;
-    document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
-    document.getElementById('total').textContent = `₹${(subtotal + shipping + tax).toFixed(2)}`;
+    document.getElementById('subtotal').textContent = "₹0";
+    document.getElementById('shipping').textContent = "₹0";
+    document.getElementById('tax').textContent = "₹0";
+    document.getElementById('total').textContent = "₹0";
 }
 
 // Update item quantity
