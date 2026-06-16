@@ -1,6 +1,25 @@
 console.log("cart.js loaded");
 const API_URL = "https://aovpkpo1a3.execute-api.ap-south-1.amazonaws.com/prod/order";
 
+const imageMap = {
+    "Cat Food": "images/Cat Food.jpg",
+    "Cat Toy": "images/Cat Toy.jpg",
+    "Dog Food": "images/Dog Food.jpeg",
+    "Dog Leash": "images/Dog Leash.jpg",
+    "Dog Toy": "images/Dog Toy.jpg",
+    "German Shepherd": "images/German_Shepherd.jpeg",
+    "Pet Boarding": "images/Pet Boarding.jpg",
+    "Pet Grooming": "images/Pet Grooming.jpg",
+    "Ragdoll": "images/Ragdoll.jpg",
+    "Siberian Husky": "images/Siberian Huskies.jpeg",
+    "Veterinary Care": "images/Veterinary Care.jpg",
+    "American Shorthair": "images/american_shorthair.jpg",
+    "Labrador": "images/labrador.jpg",
+    "Persian Cat": "images/persian cat.jpg",
+    "Pets World": "images/petsworld.jpeg"
+};
+
+
 // Cart page functionality
 
 // Get cart items from localStorage
@@ -264,11 +283,11 @@ window.clearCart = clearCart;
 
 // Function to get image path for an item
 function getImagePath(itemName) {
-    if (typeof imageMap === "undefined") {
-        return `https://placehold.co/80x80/4a69bd/ffffff?text=${itemName.split(' ')[0]}`;
+    if (imageMap[itemName]) {
+        return imageMap[itemName];
     }
 
-    return imageMap[itemName] || `https://placehold.co/80x80/4a69bd/ffffff?text=${itemName.split(' ')[0]}`;
+    return `https://placehold.co/80x80/4a69bd/ffffff?text=${itemName.split(' ')[0]}`;
 }
 
 // Function to check if item is a pet
