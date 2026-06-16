@@ -264,6 +264,10 @@ window.clearCart = clearCart;
 
 // Function to get image path for an item
 function getImagePath(itemName) {
+    if (typeof imageMap === "undefined") {
+        return `https://placehold.co/80x80/4a69bd/ffffff?text=${itemName.split(' ')[0]}`;
+    }
+
     return imageMap[itemName] || `https://placehold.co/80x80/4a69bd/ffffff?text=${itemName.split(' ')[0]}`;
 }
 
