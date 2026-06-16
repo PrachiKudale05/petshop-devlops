@@ -89,6 +89,6 @@
                 updateSlider();
             }
         });
-        
+        updateCartCount();
 
         
