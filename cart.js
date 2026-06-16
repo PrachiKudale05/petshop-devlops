@@ -199,7 +199,7 @@ function initializeCheckout() {
                 
                 // Redirect to main page after 2 seconds
                 setTimeout(() => {
-                    window.location.href = 'pet_shop.html';
+                    window.location.href = 'index.html';
                 }, 2000);
             }
         });
@@ -357,7 +357,7 @@ function showOrderConfirmation(userName, userAddress, total) {
     setTimeout(() => {
         notification.style.display = 'none';
         localStorage.removeItem('cartItems');
-        window.location.href = 'pet_shop.html';
+        window.location.href = 'index.html';
     }, 5000);
 }
 
