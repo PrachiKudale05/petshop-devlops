@@ -1,3 +1,4 @@
+console.log("cart.js loaded");
 const API_URL = "https://aovpkpo1a3.execute-api.ap-south-1.amazonaws.com/prod/order";
 
 // Cart page functionality
@@ -8,6 +9,7 @@ let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 // Render cart items
 function renderCart() {
+      console.log("renderCart running");
     const cartContent = document.getElementById('cart-content');
     const cartSummary = document.getElementById('cart-summary');
     
@@ -145,7 +147,6 @@ function clearCart() {
     }
 }
 
-// Checkout functionality
 // Checkout functionality
 function initializeCheckout() {
     const checkoutBtn = document.getElementById('checkout-btn');
