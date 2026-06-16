@@ -181,56 +181,55 @@ function initializeCheckout() {
             orderSummary += `\nTotal: ₹${total.toFixed(2)}`;
             
            if(confirm(`${orderSummary}\n\nConfirm order?`)) {
-
-    console.log("Sending order to API");
-
-    fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            orderId: Date.now(),
-            items: cartItems,
-            total: total.toFixed(2)
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-
-        console.log("Success:", data);
-
-        // Save order locally
-        const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
-
-        const order = {
-            id: Date.now(),
-            date: new Date().toLocaleDateString(),
-            items: [...cartItems],
-            total: total.toFixed(2),
-            status: 'confirmed'
-        };
-
-        orders.push(order);
-        localStorage.setItem('userOrders', JSON.stringify(orders));
-
-        alert('🎉 Order placed successfully! Thank you for your purchase.');
-
-        localStorage.removeItem('cartItems');
-        cartItems = [];
-        renderCart();
-
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 2000);
-
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        alert("Failed to send order to API");
-    });
-	}
-	});
+			   const customerName = document.getElementById("userName").value;
+   			   const phone = document.getElementById("userPhone").value;
+   			   const address = document.getElementById("userAddress").value;
+			   
+			   console.log("Sending order to API");
+			   fetch(API_URL, {
+				   method: "POST",
+				   headers: {
+					   "Content-Type": "application/json"
+				   },
+				   body: JSON.stringify({
+					   customerName: customerName,
+					   phone: phone,
+					   address: address,
+					   cartItems: cartItems,
+					   total: total.toFixed(2)
+				   })
+			   })
+				   .then(response => response.json())
+				   .then(data => {
+					   console.log("Success:", data);
+					   
+					   // Save order locally
+					   const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+					   const order = {
+						   id: Date.now(),
+            			   date: new Date().toLocaleDateString(),
+            			   items: [...cartItems],
+           				   total: total.toFixed(2),
+           				   status: 'confirmed'
+					   };
+					   orders.push(order);
+					   localStorage.setItem('userOrders', JSON.stringify(orders));
+					   
+					   alert('🎉 Order placed successfully! Thank you for your purchase.');
+					   
+					   localStorage.removeItem('cartItems');
+					   cartItems = [];
+					   renderCart();
+					   setTimeout(() => {
+						   window.location.href = 'index.html';
+					   }, 2000);
+				   })
+				   .catch(error => {
+					   console.error("Error:", error);
+					   alert("Failed to send order to API");
+				   });
+		   }
+		});
 	} // confirm
 } // addEventListener
 
