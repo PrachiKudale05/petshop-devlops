@@ -146,94 +146,109 @@ function clearCart() {
 }
 
 // Checkout functionality
+// Checkout functionality
 function initializeCheckout() {
     const checkoutBtn = document.getElementById('checkout-btn');
-    
+
     if (checkoutBtn) {
+
         checkoutBtn.addEventListener('click', () => {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            if(!loggedInUser) {
-                alert('Please login to proceed with checkout');
-                window.location.href = 'login.html';
+
+            const customerName = document.getElementById("userName").value.trim();
+            const phone = document.getElementById("userPhone").value.trim();
+            const address = document.getElementById("userAddress").value.trim();
+
+            if (!customerName || !phone || !address) {
+                alert("Please fill all customer details");
                 return;
             }
-            
-            if(cartItems.length === 0) {
-                alert('Your cart is empty');
+
+            if (cartItems.length === 0) {
+                alert("Your cart is empty");
                 return;
             }
-			
-            
-            // Calculate order total
-            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            // Calculate totals
+            const subtotal = cartItems.reduce(
+                (sum, item) => sum + (item.price * item.quantity),
+                0
+            );
+
             const shipping = 50;
             const tax = subtotal * 0.18;
             const total = subtotal + shipping + tax;
-            
-            // Create order summary with images
-            let orderSummary = 'Order Summary:\n\n';
+
+            // Order summary
+            let orderSummary = "Order Summary\n\n";
+
             cartItems.forEach(item => {
-                orderSummary += `🐾 ${item.name} - ₹${item.price} x ${item.quantity} = ₹${item.price * item.quantity}\n`;
+                orderSummary += `${item.name} - ₹${item.price} x ${item.quantity} = ₹${item.price * item.quantity}\n`;
             });
+
             orderSummary += `\nSubtotal: ₹${subtotal}`;
             orderSummary += `\nShipping: ₹${shipping}`;
             orderSummary += `\nTax: ₹${tax.toFixed(2)}`;
             orderSummary += `\nTotal: ₹${total.toFixed(2)}`;
-            
-           if(confirm(`${orderSummary}\n\nConfirm order?`)) {
-			   const customerName = document.getElementById("userName").value;
-   			   const phone = document.getElementById("userPhone").value;
-   			   const address = document.getElementById("userAddress").value;
-			   
-			   console.log("Sending order to API");
-			   fetch(API_URL, {
-				   method: "POST",
-				   headers: {
-					   "Content-Type": "application/json"
-				   },
-				   body: JSON.stringify({
-					   customerName: customerName,
-					   phone: phone,
-					   address: address,
-					   cartItems: cartItems,
-					   total: total.toFixed(2)
-				   })
-			   })
-				   .then(response => response.json())
-				   .then(data => {
-					   console.log("Success:", data);
-					   
-					   // Save order locally
-					   const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
-					   const order = {
-						   id: Date.now(),
-            			   date: new Date().toLocaleDateString(),
-            			   items: [...cartItems],
-           				   total: total.toFixed(2),
-           				   status: 'confirmed'
-					   };
-					   orders.push(order);
-					   localStorage.setItem('userOrders', JSON.stringify(orders));
-					   
-					   alert('🎉 Order placed successfully! Thank you for your purchase.');
-					   
-					   localStorage.removeItem('cartItems');
-					   cartItems = [];
-					   renderCart();
-					   setTimeout(() => {
-						   window.location.href = 'index.html';
-					   }, 2000);
-				   })
-				   .catch(error => {
-					   console.error("Error:", error);
-					   alert("Failed to send order to API");
-				   });
-		   }
-		});
-	} // confirm
-} // addEventListener
 
+            if (confirm(orderSummary + "\n\nConfirm Order?")) {
 
+                fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        customerName: customerName,
+                        phone: phone,
+                        address: address,
+                        cartItems: cartItems,
+                        total: total.toFixed(2)
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+
+                    console.log("Success:", data);
+
+                    // Save order locally
+                    const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+
+                    orders.push({
+                        id: data.orderId || Date.now(),
+                        date: new Date().toLocaleDateString(),
+                        customerName,
+                        phone,
+                        address,
+                        items: [...cartItems],
+                        total: total.toFixed(2),
+                        status: "confirmed"
+                    });
+
+                    localStorage.setItem('userOrders', JSON.stringify(orders));
+
+                    alert("🎉 Order placed successfully!");
+
+                    localStorage.removeItem('cartItems');
+                    cartItems = [];
+
+                    renderCart();
+
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 2000);
+
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Failed to send order to API");
+                });
+
+            }
+
+        });
+
+    }
+}
 
 // Initialize cart page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
