@@ -10,30 +10,36 @@
         
         // Add to cart handler
         function addToCartHandler(name, price, quantity) {
-            if(quantity < 1) {
-                alert('Please select at least 1 item!');
-                return;
-            }
-            
-            // Check if item already exists
-            const existingIndex = cartItems.findIndex(item => item.name === name);
-            if(existingIndex !== -1) {
-                cartItems[existingIndex].quantity += quantity;
-            } else {
-                cartItems.push({ name, price, quantity });
-            }
-            
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            updateCartCount();
-            
-            // Show notification
-            const notification = document.getElementById('cart-notification');
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 2000);
-        }
-        
+
+    if(quantity < 1) {
+        alert('Please select at least 1 item!');
+        return;
+    }
+
+    const existingIndex = cartItems.findIndex(item => item.name === name);
+
+    if(existingIndex !== -1) {
+        cartItems[existingIndex].quantity += quantity;
+    } else {
+        cartItems.push({
+            name: name,
+            price: price,
+            quantity: quantity
+        });
+    }
+
+    localStorage.setItem(
+        'cartItems',
+        JSON.stringify(cartItems)
+    );
+
+    updateCartCount();
+
+    alert("Item Added To Cart!");
+
+    // Redirect to cart page
+    window.location.href = "cart.html";
+}        
         // For pets
         document.querySelectorAll('.add-to-cart-pet').forEach(btn => {
             btn.addEventListener('click', () => {
