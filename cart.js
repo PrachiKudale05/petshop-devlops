@@ -235,10 +235,13 @@ function initializeCheckout() {
 
                     console.log("Success:", data);
                     
-                    // ADD audio mp3 file BLOCK
+                    // Play Polly audio
                     if (data.audioUrl) {
                         const audio = new Audio(data.audioUrl);
-                        audio.play();
+                        audio.play() 
+                            
+                        .then(() => console.log("Audio started"))
+                        .catch(err => console.error("Audio error:", err));
                     }
 
                     // Save order locally
@@ -266,7 +269,7 @@ function initializeCheckout() {
 
                     setTimeout(() => {
                         window.location.href = "index.html";
-                    }, 2000);
+                    }, 10000);
 
                 })
                 .catch(error => {
