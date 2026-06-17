@@ -238,10 +238,14 @@ function initializeCheckout() {
                     // Play Polly audio
                     if (data.audioUrl) {
                         const audio = new Audio(data.audioUrl);
-                        audio.play() 
-                            
-                        .then(() => console.log("Audio started"))
-                        .catch(err => console.error("Audio error:", err));
+                        audio.play()
+                            .then(() => console.log("Audio started"))
+                            .catch(err => console.error("Audio error:", err));
+                        
+                        // Redirect only after audio finishes
+                        audio.onended = () => {
+                            window.location.href = "index.html";
+                        };
                     }
 
                     // Save order locally
@@ -266,11 +270,6 @@ function initializeCheckout() {
                     cartItems = [];
 
                     renderCart();
-
-                    setTimeout(() => {
-                        window.location.href = "index.html";
-                    }, 10000);
-
                 })
                 .catch(error => {
                     console.error("Error:", error);
