@@ -234,6 +234,12 @@ function initializeCheckout() {
                 .then(data => {
 
                     console.log("Success:", data);
+                    
+                    // ADD audio mp3 file BLOCK
+                    if (data.audioUrl) {
+                        const audio = new Audio(data.audioUrl);
+                        audio.play();
+                    }
 
                     // Save order locally
                     const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
