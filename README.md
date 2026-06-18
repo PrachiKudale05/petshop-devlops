@@ -26,32 +26,6 @@ The project demonstrates real-world DevOps practices including CI/CD automation,
 
 ---
 
-##  Architecture
-
-GitHub
-↓
-CodePipeline
-↓
-CodeBuild
-↓
-Amazon S3 (Static Website Hosting)
-↓
-Customer Browser
-↓
-Amazon API Gateway
-↓
-AWS Lambda
-├── Amazon DynamoDB (Order Storage)
-└── Amazon Polly (Voice Generation)
-↓
-Amazon S3 Audio Storage
-↓
-Customer Hears Voice Confirmation
-
-CloudWatch monitors all Lambda executions and application logs.
-
----
-
 ##  Business Problem Solved
 
 Traditional pet stores often rely on manual order processing and lack automated customer communication.
